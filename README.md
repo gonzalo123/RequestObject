@@ -3,11 +3,11 @@
     {
         public $param1;
     }
-    [/sourcecode]
 
     $request = new Request1();
     echo "param1: " . $request->param1 . '<p/>';
 
+output:
 
     test1.php?param1=11212
     param1: 11212
@@ -41,6 +41,7 @@
     var_dump($request->param2);
     echo "<br/>";
 
+output:
 
     test2.php?param1=hi&amp;param2=1
 
@@ -93,7 +94,7 @@
         var_dump($e->getValidationErrors());
     }
 
-
+output:
 
     test3.php?param2=2&amp;param1=hi
     param1: string(2) "ih"
@@ -137,6 +138,7 @@
         var_dump($e->getValidationErrors());
     }
 
+output:
 
     test4.php?param1=hi&amp;param2=2
     param1: string(4) "hi"
@@ -180,6 +182,8 @@
 
     echo "<p>param3: </p>";
     var_dump($request->param3);
+
+output:
 
     test5.php?param1[]=1&amp;param1[]=2&amp;param2[]=hi
     param1: array(2) { [0]=&gt; int(1) [1]=&gt; int(2) }

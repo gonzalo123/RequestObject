@@ -56,7 +56,7 @@ abstract class RequestObject
     /**
      * @var RequestObject
      */
-    private $instance = null;
+    private static $instance = null;
 
     /**
      * @static
@@ -107,12 +107,20 @@ abstract class RequestObject
             } else {
                 $this->$propertyName = $filteredInput;
             }
+            $this->filteredParameters[$propertyName] = $this->$propertyName;
 
         }
         
         if ($validateInConstructor === true) {
             $this->validateAll();
         }
+    }
+
+    private $filteredParameters = array();
+
+    public function getFilteredParameters()
+    {
+        return $this->filteredParameters;
     }
 
     private function filterInput($cast, $key, $default)
@@ -181,6 +189,8 @@ abstract class RequestObject
     {
         if (isset($this->dinamicCallbacks[$name])) {
             return call_user_func_array($this->dinamicCallbacks[$name], $arguments);
+        } else {
+            return null;
         }
     }
 }

@@ -5,6 +5,7 @@ class Request extends RequestObject
 {
     /** @cast string */
     public $param1;
+
     /**
      * @cast string
      * @default default value

@@ -1,4 +1,12 @@
 <?php
+/**
+ * THIS PROGRAM COMES WITH ABSOLUTELY NO WARANTIES !
+ * USE IT AT YOUR OWN RISKS !
+ *
+ * @author Gonzalo Ayuso <gonzalo123@gmail.com>
+ *
+ * @copyright under GPL 2 licence
+ */
 class RequestObjectException extends Exception
 {
     private $validationErrors = array();

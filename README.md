@@ -19,28 +19,29 @@ output:
 # Example 2: data types and default values
 
 ```php
-    class Request2 extends RequestObject
-    {
-        /**
-         * @cast string
-         */
-        public $param1;
-        /**
-         * @cast string
-         * @default default value
-         */
-        public $param2;
-    }
+<?php
+class Request2 extends RequestObject
+{
+    /**
+     * @cast string
+     */
+    public $param1;
+    /**
+     * @cast string
+     * @default default value
+     */
+    public $param2;
+}
 
-    $request = new Request2();
+$request = new Request2();
 
-    echo "param1: <br/>";
-    var_dump($request->param1);
-    echo "<br/>";
+echo "param1: <br/>";
+var_dump($request->param1);
+echo "<br/>";
 
-    echo "param2: <br/>";
-    var_dump($request->param2);
-    echo "<br/>";
+echo "param2: <br/>";
+var_dump($request->param2);
+echo "<br/>";
 ```
 
 output:
@@ -61,40 +62,41 @@ output:
 
 # Example 3: validadors
 ```php
-    class Request3 extends RequestObject
+<?php
+class Request3 extends RequestObject
+{
+    /** @cast string */
+    public $param1;
+    /** @cast integer */
+    public $param2;
+
+    protected function validate_param1(&$value)
     {
-        /** @cast string */
-        public $param1;
-        /** @cast integer */
-        public $param2;
-
-        protected function validate_param1(&$value)
-        {
-            $value = strrev($value);
-        }
-        
-        protected function validate_param2($value)
-        {
-            if ($value == 1) {
-                return false;
-            }
+        $value = strrev($value);
+    }
+    
+    protected function validate_param2($value)
+    {
+        if ($value == 1) {
+            return false;
         }
     }
-    try {
-        $request = new Request3();
+}
+try {
+    $request = new Request3();
 
-        echo "param1: <br/>";
-        var_dump($request->param1);
-        echo "<br/>";
+    echo "param1: <br/>";
+    var_dump($request->param1);
+    echo "<br/>";
 
-        echo "param2: <br/>";
-        var_dump($request->param2);
-        echo "<br/>";
-    } catch (RequestObjectException $e) {
-        echo $e->getMessage();
-        echo "<br/>";
-        var_dump($e->getValidationErrors());
-    }
+    echo "param2: <br/>";
+    var_dump($request->param2);
+    echo "<br/>";
+} catch (RequestObjectException $e) {
+    echo $e->getMessage();
+    echo "<br/>";
+    var_dump($e->getValidationErrors());
+}
 ```
 
 output:
@@ -110,37 +112,38 @@ output:
 # Example 4: Dynamic validations
 
 ```php
-    class Request4 extends RequestObject
-    {
-        /** @cast string */
-        public $param1;
-        /** @cast integer */
-        public $param2;
-    }
+<?php
+class Request4 extends RequestObject
+{
+    /** @cast string */
+    public $param1;
+    /** @cast integer */
+    public $param2;
+}
 
-    $request = new Request4(false); // disables perform validation on contructor
-                                   // it means it will not raise any validation exception
-    $request->appendValidateTo('param2', function($value) {
-            if ($value == 1) {
-                return false;
-            }
-        });
+$request = new Request4(false); // disables perform validation on contructor
+                               // it means it will not raise any validation exception
+$request->appendValidateTo('param2', function($value) {
+        if ($value == 1) {
+            return false;
+        }
+    });
 
-    try {
-        $request->validateAll(); // now we perform the validation
+try {
+    $request->validateAll(); // now we perform the validation
 
-        echo "param1: <br/>";
-        var_dump($request->param1);
-        echo "<br/>";
+    echo "param1: <br/>";
+    var_dump($request->param1);
+    echo "<br/>";
 
-        echo "param2: <br/>";
-        var_dump($request->param2);
-        echo "<br/>";
-    } catch (RequestObjectException $e) {
-        echo $e->getMessage();
-        echo "<br/>";
-        var_dump($e->getValidationErrors());
-    }
+    echo "param2: <br/>";
+    var_dump($request->param2);
+    echo "<br/>";
+} catch (RequestObjectException $e) {
+    echo $e->getMessage();
+    echo "<br/>";
+    var_dump($e->getValidationErrors());
+}
 ```
 
 output:
@@ -158,36 +161,37 @@ output:
 # Example 5: Arrays and default params
 
 ```php
-    class Request5 extends RequestObject
+<?php
+class Request5 extends RequestObject
+{
+    /** @cast arrayString */
+    public $param1;
+
+    /** @cast integer */
+    public $param2;
+
+    /**
+     * @cast arrayString
+     * @defaultArray "hello", "world"
+     */
+    public $param3;
+
+    protected function validate_param2(&$value)
     {
-        /** @cast arrayString */
-        public $param1;
-
-        /** @cast integer */
-        public $param2;
-
-        /**
-         * @cast arrayString
-         * @defaultArray "hello", "world"
-         */
-        public $param3;
-
-        protected function validate_param2(&$value)
-        {
-            $value++;
-        }
+        $value++;
     }
+}
 
-    $request = new Request5();
+$request = new Request5();
 
-    echo "<p>param1: </p>";
-    var_dump($request->param1);
+echo "<p>param1: </p>";
+var_dump($request->param1);
 
-    echo "<p>param2: </p>";
-    var_dump($request->param2);
+echo "<p>param2: </p>";
+var_dump($request->param2);
 
-    echo "<p>param3: </p>";
-    var_dump($request->param3);
+echo "<p>param3: </p>";
+var_dump($request->param3);
 ```
 
 output:

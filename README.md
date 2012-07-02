@@ -18,6 +18,7 @@ output:
 
 # Example 2: data types and default values
 
+```php
     class Request2 extends RequestObject
     {
         /**
@@ -40,6 +41,7 @@ output:
     echo "param2: <br/>";
     var_dump($request->param2);
     echo "<br/>";
+```
 
 output:
 
@@ -58,7 +60,7 @@ output:
     param2: string(13) "default value"
 
 # Example 3: validadors
-
+```php
     class Request3 extends RequestObject
     {
         /** @cast string */
@@ -93,6 +95,7 @@ output:
         echo "<br/>";
         var_dump($e->getValidationErrors());
     }
+```
 
 output:
 
@@ -106,6 +109,7 @@ output:
 
 # Example 4: Dynamic validations
 
+```php
     class Request4 extends RequestObject
     {
         /** @cast string */
@@ -137,6 +141,7 @@ output:
         echo "<br/>";
         var_dump($e->getValidationErrors());
     }
+```
 
 output:
 
@@ -152,6 +157,7 @@ output:
 
 # Example 5: Arrays and default params
 
+```php
     class Request5 extends RequestObject
     {
         /** @cast arrayString */
@@ -182,6 +188,7 @@ output:
 
     echo "<p>param3: </p>";
     var_dump($request->param3);
+```
 
 output:
 
